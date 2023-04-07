@@ -1,0 +1,20 @@
+server {
+    listen ${WS_PORT};
+    listen [::]:${WS_PORT};
+
+    access_log /tmp/reverse-access.log;
+    error_log /tmp/reverse-error.log;
+
+    location /microserivce1 {
+        proxy_pass ${MS1_EP_URL}/microserivce1;
+    }
+    location /microserivce2 {
+        proxy_pass ${MS2_EP_URL}/microserivce2;
+    }
+
+    error_page 404 =404 @fallback;
+
+    location @fallback {
+        proxy_pass ${FALLBACK_EP_URL}/notfound;
+    }
+}

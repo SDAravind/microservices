@@ -1,0 +1,52 @@
+services:
+
+  webserver:
+    image: ws:${WS_TAG}
+    # container_name: proxy_server
+    # restart: always
+    depends_on:
+      - microservice1
+      - microservice2
+    build:
+      context: web
+      dockerfile: Dockerfile
+    env_file:
+      - web/config/.env
+    ports:
+      - 80:8080
+    networks:
+      - demoNet
+
+  microservice1:
+    image: ms1:${MS1_TAG}
+    restart: always
+    deploy:
+      replicas: ${MS1_REPLICAS}
+    build:
+        context: micro1
+        dockerfile: Dockerfile
+    env_file:
+      - micro1/config/.env
+    networks:
+      - demoNet
+
+  microservice2:
+    image: ms2:${MS2_TAG}
+    restart: always
+    deploy:
+      replicas: ${MS2_REPLICAS}
+    build:
+        context: micro2
+        dockerfile: Dockerfile
+    env_file:
+      - micro2/config/.env
+    networks:
+      - demoNet
+
+networks:
+  demoNet:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 17.22.0.0/16
+          gateway: 17.22.0.1
