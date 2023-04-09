@@ -1,9 +1,10 @@
+version: '3.8'
 services:
 
   webserver:
-    image: ws:${WS_TAG}
-    # container_name: proxy_server
-    # restart: always
+    image: ${DOCKER_ACCOUNT}/ws:${WS_TAG}
+    container_name: proxy_server
+    restart: unless-stopped
     depends_on:
       - microservice1
       - microservice2
@@ -18,8 +19,8 @@ services:
       - demoNet
 
   microservice1:
-    image: ms1:${MS1_TAG}
-    restart: always
+    image: ${DOCKER_ACCOUNT}/ms1:${MS1_TAG}
+    restart: unless-stopped
     deploy:
       replicas: ${MS1_REPLICAS}
     build:
@@ -29,10 +30,16 @@ services:
       - micro1/config/.env
     networks:
       - demoNet
+    # healthcheck:
+    #   test: wget --spider http://localhost:8000/health || exit 1
+    #   interval: 1m30s
+    #   timeout: 30s
+    #   retries: 5
+    #   start_period: 30s
 
   microservice2:
-    image: ms2:${MS2_TAG}
-    restart: always
+    image: ${DOCKER_ACCOUNT}/ms2:${MS2_TAG}
+    restart: unless-stopped
     deploy:
       replicas: ${MS2_REPLICAS}
     build:
@@ -40,6 +47,19 @@ services:
         dockerfile: Dockerfile
     env_file:
       - micro2/config/.env
+    networks:
+      - demoNet
+
+  fallback:
+    image: ${DOCKER_ACCOUNT}/fallback:${FB_TAG}
+    restart: unless-stopped
+    deploy:
+      replicas: ${FB_REPLICAS}
+    build:
+        context: fallback
+        dockerfile: Dockerfile
+    env_file:
+      - fallback/config/.env
     networks:
       - demoNet
 
