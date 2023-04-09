@@ -1,4 +1,6 @@
-.dockerignore
-Dockerfile
-poetry.lock
-.venv
+**
+
+!config/
+!app/
+!main.py
+!pyproject.toml
