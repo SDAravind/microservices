@@ -1,5 +1,6 @@
 **
 
+!fallback
 !config/
 !app/
 !main.py
