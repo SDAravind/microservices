@@ -6,6 +6,3 @@ class AppServer(BaseSettings):
     PORT: int
     RELOAD: bool
     WORKERS: int
-
-
-MS2_APPSERVER = AppServer()
