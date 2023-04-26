@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "micro2"
+name = "fallback"
 version = "0.1.0"
 description = ""
 authors = ["Praveen R <praveen.r@isg-one.com>"]
