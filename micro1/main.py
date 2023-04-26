@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 
-from config.settings import MS1_APPSERVER
+from .micro1 import appserver
 
 app = FastAPI()
 
@@ -14,10 +14,10 @@ if __name__ == "__main__":
     import uvicorn
 
     kwargs = {
-        "host": MS1_APPSERVER.HOST,
-        "port": MS1_APPSERVER.PORT,
-        "reload": MS1_APPSERVER.RELOAD,
-        "workers": None if MS1_APPSERVER.RELOAD else 2,
+        "host": appserver.HOST,
+        "port": appserver.PORT,
+        "reload": appserver.RELOAD,
+        "workers": None if appserver.RELOAD else 2,
     }
 
     uvicorn.run("main:app", **kwargs)
