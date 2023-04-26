@@ -2,7 +2,7 @@ version: '3.8'
 services:
 
   webserver:
-    image: ${DOCKER_ACCOUNT}/ws:${WS_TAG}
+    image: ${CONTAINER_REGISTRY_ACCOUNT}/ws:${WS_TAG}
     container_name: proxy_server
     restart: unless-stopped
     depends_on:
@@ -12,14 +12,14 @@ services:
       context: web
       dockerfile: Dockerfile
     env_file:
-      - web/config/.env
+      - web/.env
     ports:
       - 80:8080
     networks:
       - demoNet
 
   microservice1:
-    image: ${DOCKER_ACCOUNT}/ms1:${MS1_TAG}
+    image: ${CONTAINER_REGISTRY_ACCOUNT}/ms1:${MS1_TAG}
     restart: unless-stopped
     deploy:
       replicas: ${MS1_REPLICAS}
@@ -27,7 +27,7 @@ services:
         context: micro1
         dockerfile: Dockerfile
     env_file:
-      - micro1/config/.env
+      - micro1/.env
     networks:
       - demoNet
     # healthcheck:
@@ -38,7 +38,7 @@ services:
     #   start_period: 30s
 
   microservice2:
-    image: ${DOCKER_ACCOUNT}/ms2:${MS2_TAG}
+    image: ${CONTAINER_REGISTRY_ACCOUNT}/ms2:${MS2_TAG}
     restart: unless-stopped
     deploy:
       replicas: ${MS2_REPLICAS}
@@ -46,12 +46,12 @@ services:
         context: micro2
         dockerfile: Dockerfile
     env_file:
-      - micro2/config/.env
+      - micro2/.env
     networks:
       - demoNet
 
   fallback:
-    image: ${DOCKER_ACCOUNT}/fallback:${FB_TAG}
+    image: ${CONTAINER_REGISTRY_ACCOUNT}/fallback:${FB_TAG}
     restart: unless-stopped
     deploy:
       replicas: ${FB_REPLICAS}
@@ -59,7 +59,7 @@ services:
         context: fallback
         dockerfile: Dockerfile
     env_file:
-      - fallback/config/.env
+      - fallback/.env
     networks:
       - demoNet
 
