@@ -17,7 +17,7 @@ RUN pip install poetry \
 # FROM python:python:3.11-slim-bullseye as production
 FROM ${PYIMAGE} as production
 
-ARG USERNAME=jarvis
+ARG USERNAME=debian
 ENV PATH="/app/.venv/bin:$PATH"
 WORKDIR /app
 
