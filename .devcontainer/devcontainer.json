@@ -33,17 +33,18 @@
   // "forwardPorts": [],
   // Uncomment the next line to run commands after the container is created.
   "postCreateCommand": "make venvs",
-  "customizations": {
+  // Configure tool-specific properties.
+    "customizations": {
     "vscode": {
       "extensions": [
         "charliermarsh.ruff",
-        "ms-python.autopep8",
-        "ms-python.black-formatter",
-        "ms-python.flake8",
-        "ms-python.gather",
-        "ms-python.isort",
-        "ms-python.mypy-type-checker",
-        "ms-python.pylint",
+//         "ms-python.autopep8",
+//         "ms-python.black-formatter",
+//         "ms-python.flake8",
+//         "ms-python.gather",
+//         "ms-python.isort",
+//         "ms-python.mypy-type-checker",
+//         "ms-python.pylint",
         "ms-python.python",
         "VisualStudioExptTeam.vscodeintellicode-completions",
         "VisualStudioExptTeam.vscodeintellicode",
@@ -51,8 +52,6 @@
       ]
     }
   }
-  // Configure tool-specific properties.
-  // "customizations": {},
   // Uncomment to connect as an existing user other than the container default. More info: https://aka.ms/dev-containers-non-root.
   // "remoteUser": "devcontainer"
 }
